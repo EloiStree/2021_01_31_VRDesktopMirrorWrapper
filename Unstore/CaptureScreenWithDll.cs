@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+using UnityEditor.Build;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Experimental.Rendering;
 using UnityEngine.UI;
 
@@ -14,6 +16,12 @@ public class CaptureScreenWithDll : MonoBehaviour
     public int m_widht;
     public int m_height;
 
+    [Serializable]
+
+    public  class ImageEvent : UnityEvent<Texture2D> { };
+    public ImageEvent m_onRefresh;
+
+
     void Start()
     {
         IntPtr target= ScreenCaptureWindow.GetDesktopWindow();
@@ -22,6 +30,7 @@ public class CaptureScreenWithDll : MonoBehaviour
         BitmapToTexture.ConvertV1(target, w,h, out m_mainWindow);
         m_widht = w;
         m_height = h;
+        m_onRefresh.Invoke(m_mainWindow);
     }
 
 }

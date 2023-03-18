@@ -8,9 +8,7 @@ using System.Xml;
 
 public class VdmDesktop : MonoBehaviour
 {
-    [HideInInspector]
     public int Screen = 0;
-    [HideInInspector]
     public int ScreenIndex = 0;
 
     [DllImport("user32.dll")]
